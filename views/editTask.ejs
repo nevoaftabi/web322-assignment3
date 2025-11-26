@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Task</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-100 flex items-center justify-center">
+  <main class="w-full flex justify-center px-4">
+    <section
+      class="bg-white rounded-2xl shadow-xl px-8 py-10 md:px-10 md:py-12 max-w-md w-full"
+    >
+      <h1 class="text-xl font-semibold text-blue-600 mb-6">
+        Edit Task
+      </h1>
+
+      <form action="/tasks/edit/<%= task.id %>" method="POST" class="space-y-4">
+
+        <div>
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            value="<%= task.title %>"
+            required
+            class="w-full rounded-md border border-slate-200 px-4 py-2.5 text-sm outline-none
+                   focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <textarea
+            name="description"
+            rows="4"
+            placeholder="Description"
+            class="w-full rounded-md border border-slate-200 px-4 py-2.5 text-sm outline-none
+                   focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+          ><%= task.description || "" %></textarea>
+        </div>
+
+        <div>
+          <input
+            type="date"
+            name="dueDate"
+            value="<%= task.dueDate ? new Date(task.dueDate).toISOString().slice(0,10) : '' %>"
+            class="w-full rounded-md border border-slate-200 px-4 py-2.5 text-sm outline-none
+                   focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <select
+            name="status"
+            class="w-full rounded-md border border-slate-200 px-4 py-2.5 text-sm outline-none
+                   focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+          >
+            <option value="Pending"   <%= task.status === 'Pending'   ? 'selected' : '' %>>Pending</option>
+            <option value="Completed" <%= task.status === 'Completed' ? 'selected' : '' %>>Completed</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="mt-4 w-full rounded-md bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2.5"
+        >
+          Save Changes
+        </button>
+      </form>
+
+      <p class="mt-4 text-sm text-blue-600">
+        <a href="/tasks" class="hover:underline">
+          Back to Tasks
+        </a>
+      </p>
+    </section>
+  </main>
+</body>
+</html>

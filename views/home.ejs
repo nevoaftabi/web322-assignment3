@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task Management App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-slate-100 flex items-center justify-center">
+  <main class="w-full flex justify-center px-4">
+    <section
+      class="bg-white rounded-2xl shadow-xl px-8 py-10 md:px-14 md:py-12 max-w-xl text-center"
+    >
+      <h1 class="text-3xl md:text-4xl font-semibold text-blue-600 mb-3">
+        Task Management App!
+      </h1>
+
+      <p class="text-slate-600 text-sm md:text-base leading-relaxed">
+        Manage your tasks with secure login and registration.
+        <span class="font-semibold">MongoDB</span> for authentication,
+        <span class="font-semibold">Postgres</span> for your data.
+      </p>
+
+      <div class="mt-8 flex items-center justify-center gap-4">
+        <a
+          href="/login"
+          class="px-6 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-medium"
+        >
+          Login
+        </a>
+
+        <a
+          href="/register"
+          class="px-6 py-2 rounded-md bg-purple-600 hover:bg-purple-700 text-white font-medium"
+        >
+          Register
+        </a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

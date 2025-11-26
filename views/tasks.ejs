@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Tasks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-slate-100">
+  <main class="max-w-5xl mx-auto px-6 py-10">
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-3xl font-semibold text-blue-600">Your Tasks</h1>
+      <a
+        href="/tasks/add"
+        class="px-5 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold"
+      >
+        Add New Task
+      </a>
+    </div>
+
+    <% if (!tasks || tasks.length === 0) { %>
+      <div class="w-full bg-cyan-300/80 text-slate-800 px-5 py-3 rounded-full shadow-sm mb-10">
+        No tasks yet. Add a new one!
+      </div>
+
+    <% } else { %>
+
+      <div class="space-y-6">
+        <% tasks.forEach(task => { %>
+          <div class="bg-white rounded-xl shadow px-6 py-5 flex justify-between items-start">
+
+            <div>
+              <h2 class="text-lg font-semibold text-slate-800"><%= task.title %></h2>
+
+              <% if (task.description) { %>
+                <p class="text-slate-600 mt-1"><%= task.description %></p>
+              <% } %>
+
+              <% if (task.dueDate) { %>
+                <p class="text-sm text-slate-500 mt-2">
+                  Due: <%= new Date(task.dueDate).toLocaleDateString() %>
+                </p>
+              <% } %>
+
+              <div class="flex items-center gap-2 mt-4">
+                <a
+                  href="/tasks/edit/<%= task.id %>"
+                  class="px-4 py-1.5 rounded-md bg-cyan-200 hover:bg-cyan-300 text-slate-900 text-sm font-medium"
+                >
+                  Edit
+                </a>
+
+                <form action="/tasks/delete/<%= task.id %>" method="POST">
+                  <button
+                    type="submit"
+                    class="px-4 py-1.5 rounded-md bg-red-300 hover:bg-red-400 text-slate-900 text-sm font-medium"
+                  >
+                    Delete
+                  </button>
+                </form>
+
+                <% if (task.status === "Completed") { %>
+                  <form action="/tasks/status/<%= task.id %>" method="POST">
+                    <input type="hidden" name="status" value="Pending" />
+                    <button
+                      type="submit"
+                      class="px-4 py-1.5 rounded-md bg-amber-200 hover:bg-amber-300 text-slate-900 text-sm font-medium"
+                    >
+                      Mark as Pending
+                    </button>
+                  </form>
+                <% } else { %>
+                  <form action="/tasks/status/<%= task.id %>" method="POST">
+                    <input type="hidden" name="status" value="Completed" />
+                    <button
+                      type="submit"
+                      class="px-4 py-1.5 rounded-md bg-teal-200 hover:bg-teal-300 text-slate-900 text-sm font-medium"
+                    >
+                      Mark as Completed
+                    </button>
+                  </form>
+                <% } %>
+
+              </div>
+            </div>
+
+            <div class="ml-4">
+              <span
+                class="px-3 py-1 text-xs rounded-full 
+                       <%= task.status === 'Completed'
+                         ? 'bg-teal-200 text-teal-900'
+                         : 'bg-amber-200 text-amber-800' %>"
+              >
+                <%= task.status.toLowerCase() %>
+              </span>
+            </div>
+
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+
+    <div class="mt-12 flex items-center gap-4">
+      <a
+        href="/dashboard"
+        class="px-6 py-2 rounded-md bg-purple-700 hover:bg-purple-800 text-white text-sm font-semibold"
+      >
+        Back to Dashboard
+      </a>
+
+      <a
+        href="/logout"
+        class="px-6 py-2 rounded-md bg-amber-200 hover:bg-amber-300 text-slate-800 text-sm font-semibold inline-flex items-center justify-center"
+      >
+        Logout
+      </a>
+    </div>
+
+  </main>
+</body>
+</html>
