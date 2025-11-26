@@ -11,7 +11,7 @@
 ********************************************************************************/
 
 require("dotenv").config();
-
+const pg = require("pg");
 const connectMongo = require("./db/mongo");
 const User = require("./models/User");
 const { connectPostgreSQL, Task } = require("./models");
