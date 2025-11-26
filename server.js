@@ -11,6 +11,7 @@
 ********************************************************************************/
 
 require("dotenv").config();
+const pg = require('pg');
 const connectMongo = require("./db/mongo");
 const User = require("./models/User");
 const { connectPostgreSQL, Task } = require("./models");
@@ -26,6 +27,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, "/views"));
 
 app.use(
   clientSessions({
